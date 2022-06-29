@@ -1,0 +1,22 @@
+div.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.user-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.user-avatar {
+    align-self: center;
+    max-width: 60px;
+    max-height: 60px;
+}
+
+.user-name {
+    font-size: 30px;
+    font-style: italic;
+    align-self: center;
+    margin-left: 5px;
+}

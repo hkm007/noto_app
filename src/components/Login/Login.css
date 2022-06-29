@@ -1,0 +1,38 @@
+.login-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15%;
+}
+
+@media only screen and (max-width: 600px) {
+    .login-page {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 75%;
+    }
+}
+
+.login-jargon-para {
+    font-style: italic;
+    color: gray;
+    position: relative;
+}
+
+.login-button {
+    margin-top: 20px;
+    display: flex;
+}
+
+.login-button-text {
+    align-self: center;
+}
+
+.login-google-logo {
+    align-self: center;
+}

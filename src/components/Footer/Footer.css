@@ -1,0 +1,24 @@
+.footer-basic {
+  padding: 40px 0;
+  background-color: #ffffff;
+  color: #4b4c4d;
+}
+
+.footer-basic .copyright {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
+}
+
+.footer-a {
+    text-decoration: none;
+    color: #aaa;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.footer-a:hover {
+    color: #aaa;
+}
