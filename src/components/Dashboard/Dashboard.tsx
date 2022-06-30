@@ -40,6 +40,14 @@ function Dashboard() {
               />
             </div>
           </div>
+          <div className="filter">
+            <select className="custom-select">
+              <option selected>All</option>
+              <option value="1">Books</option>
+              <option value="2">Notes</option>
+              <option value="3">First Year</option>
+            </select>
+          </div>
         </div>
       </div>
 

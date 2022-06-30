@@ -25,3 +25,9 @@ svg:hover {
     color: red;
     cursor: pointer;
 }
+
+.filter {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
