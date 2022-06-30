@@ -4,7 +4,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15%;
+    margin-top: 20px;
+}
+
+.noto-login-image {
+    max-width: 250px;
+    max-height: 250px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -14,7 +19,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin-top: 75%;
+        margin-top: 50%;
     }
 }
 

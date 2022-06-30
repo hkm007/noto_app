@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Login.css';
 import google_icon from '../../assets/google_icon.png';
+import { Constants } from '../../utils/constants';
 
 function Login() {
   return (
     <div className="login-page">
-      <h1 className="display-1">Noto</h1>
+      <img className='noto-login-image' src={require('../../assets/noto_login.png')} alt='noto_login' />
+      <h1 className="display-1">{Constants.APP_NAME}</h1>
       <p className="login-jargon-para">Smartest Online Notes Store for engineering students.</p>
       <button className="btn btn-outline-primary login-button">
         <img
