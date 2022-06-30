@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './Login.css';
 import google_icon from '../../assets/google_icon.png';
 import { Constants } from '../../utils/constants';
