@@ -2,16 +2,5 @@
     color: gray;
     font-size: 12px;
     font-style: italic;
-}
-
-.download {
-    font-size: 10px;
-    color: red;
     margin-bottom: 0px;
-    text-decoration: none;
-}
-
-.download:hover {
-    color: blueviolet;
-    cursor: pointer;
 }

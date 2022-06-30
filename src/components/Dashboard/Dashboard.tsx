@@ -2,6 +2,7 @@ import React from "react";
 import Footer from "../Footer/Footer";
 import Notes from "../Notes/Notes";
 import "./Dashboard.css";
+import { FaSignOutAlt } from 'react-icons/fa';
 
 
 function Dashboard() {
@@ -10,12 +11,16 @@ function Dashboard() {
     console.log(name)
   }
 
+  const handleLogout = () => {
+    console.log('logout')
+  }
+
   return (
     <div className="dashboard-page p-1">
       <div className="card">
         <div className="card-body">
           <div className="user-area col-lg-6 mx-auto">
-            <p className="user-name">Hey! Jarvis</p>
+            <p className="user-name">Hey! Jarvis <FaSignOutAlt className="logout" onClick={handleLogout} /></p>
             <img
               className="user-avatar"
               src={require("../../assets/avatar.png")}
