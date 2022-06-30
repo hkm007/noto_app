@@ -5,6 +5,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDiYBcz7veqA-dNJe4L2U5tJS8eslHCLXE",
+  authDomain: "thenoto-app.firebaseapp.com",
+  projectId: "thenoto-app",
+  storageBucket: "thenoto-app.appspot.com",
+  messagingSenderId: "464656538121",
+  appId: "1:464656538121:web:ff6d3ef341d46f43edf6d8",
+  measurementId: "G-8SX2WFFDS8"
+};
+
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

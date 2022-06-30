@@ -8,14 +8,25 @@ import { INotes, NotesType } from "../../models/Notes";
 import Cookies from "js-cookie";
 import { Constants } from "../../utils/constants";
 import toast, { Toaster } from "react-hot-toast";
+import { getAuth, signOut } from "firebase/auth";
+import { IUser } from "../../models/User";
 
 
-function Dashboard() {
+function Dashboard(setIsLoggedIn: any) {
   const [data, setData] = useState<Array<INotes>>([]);
   const [searchData, setSearchData] = useState<Array<INotes>>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
+
+    const userFromLocalStorage: IUser = JSON.parse(localStorage.getItem(Constants.NOTO_USER)!);
+
+    setUser({
+      name: userFromLocalStorage.name.substring(0, userFromLocalStorage.name.indexOf(" ")),
+      avatar: userFromLocalStorage.avatar
+    })
+
     setLoading(true);
 
     const noto_cookies = Cookies.get(Constants.COOKIE_NAME);
@@ -97,7 +108,23 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
-    console.log("logout");
+    const auth = getAuth();
+    signOut(auth)
+      .then((res) => {
+        localStorage.removeItem(Constants.NOTO_USER);
+        setIsLoggedIn(false);
+        toast.success(`Logged out successfully!`, {
+          duration: 3000,
+          position: "top-center",
+        });
+      })
+      .catch((err) => {
+        toast.error("Something went wrong!", {
+          duration: 3000,
+          position: "top-center",
+        });
+        console.log(err);
+      });
   };
 
   return (
@@ -106,12 +133,12 @@ function Dashboard() {
         <div className="card-body">
           <div className="user-area col-lg-6 mx-auto">
             <p className="user-name">
-              Hey! Jarvis{" "}
+              Hey! {user?.name}{" "}
               <FaSignOutAlt className="logout" onClick={handleLogout} />
             </p>
             <img
               className="user-avatar"
-              src={require("../../assets/avatar.png")}
+              src={user?.avatar}
               alt="avatar"
             />
           </div>
