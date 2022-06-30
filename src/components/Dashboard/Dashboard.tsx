@@ -71,7 +71,7 @@ function Dashboard(setIsLoggedIn: any) {
           console.log(err);
         });
     }
-  });
+  }, [data.length]);
 
   const handleSearch = (name: string) => {
     setSearchData(
