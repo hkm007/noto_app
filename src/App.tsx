@@ -13,13 +13,8 @@ function App() {
     const auth = getAuth();
     onAuthStateChanged(auth, user => {
       if(user) {
-        localStorage.setItem("noto_user", JSON.stringify({
-          name: user.displayName,
-          avatar: user.photoURL
-        }))
         setIsLoggedIn(true);
       } else {
-        localStorage.removeItem("noto_user");
         setIsLoggedIn(false);
       }
     })

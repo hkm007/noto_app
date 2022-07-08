@@ -11,7 +11,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { getAuth, signOut } from "firebase/auth";
 import { IUser } from "../../models/User";
 
-
 function Dashboard(setIsLoggedIn: any) {
   const [data, setData] = useState<Array<INotes>>([]);
   const [searchData, setSearchData] = useState<Array<INotes>>([]);
@@ -19,13 +18,20 @@ function Dashboard(setIsLoggedIn: any) {
   const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
+    const auth = getAuth();
 
-    const userFromLocalStorage: IUser = JSON.parse(localStorage.getItem(Constants.NOTO_USER)!);
+    const loggedInUser: IUser = {
+      name: auth.currentUser?.displayName || "User",
+      avatar: auth.currentUser?.photoURL || "",
+    };
 
     setUser({
-      name: userFromLocalStorage.name.substring(0, userFromLocalStorage.name.indexOf(" ")),
-      avatar: userFromLocalStorage.avatar
-    })
+      name: loggedInUser.name.substring(
+        0,
+        loggedInUser.name.indexOf(" ")
+      ),
+      avatar: loggedInUser.avatar,
+    });
 
     setLoading(true);
 
@@ -37,7 +43,7 @@ function Dashboard(setIsLoggedIn: any) {
       setSearchData(JSON.parse(noto_cookies));
     } else {
       axios
-        .get(Constants.API_URL, { headers: { Authorization: `Bearer ${user?.avatar || "123456"}` } })
+        .get(Constants.API_URL, { headers: { Authorization: `Bearer 123456` } })
         .then((response) => {
           setLoading(false);
 
@@ -52,15 +58,15 @@ function Dashboard(setIsLoggedIn: any) {
           setSearchData(response.data);
         })
         .catch((err) => {
+          setLoading(false);
+          console.log(err);
           toast.error("Something went wrong!", {
             duration: 3000,
             position: "top-center",
           });
-          console.log(err);
-          setLoading(false);
         });
     }
-  }, [data.length]);
+  }, []);
 
   const handleSearch = (name: string) => {
     setSearchData(
@@ -72,24 +78,39 @@ function Dashboard(setIsLoggedIn: any) {
     switch (filterItem) {
       case NotesType.NOTES:
         setSearchData(data.filter((item) => item.type === NotesType.NOTES));
-        toast.success(`Fetched ${data.filter((item) => item.type === NotesType.NOTES).length} results!`, {
-          duration: 3000,
-          position: "top-center",
-        });
+        toast.success(
+          `Fetched ${
+            data.filter((item) => item.type === NotesType.NOTES).length
+          } results!`,
+          {
+            duration: 3000,
+            position: "top-center",
+          }
+        );
         break;
       case NotesType.BOOK:
         setSearchData(data.filter((item) => item.type === NotesType.BOOK));
-        toast.success(`Fetched ${data.filter((item) => item.type === NotesType.BOOK).length} results!`, {
-          duration: 3000,
-          position: "top-center",
-        });
+        toast.success(
+          `Fetched ${
+            data.filter((item) => item.type === NotesType.BOOK).length
+          } results!`,
+          {
+            duration: 3000,
+            position: "top-center",
+          }
+        );
         break;
       case NotesType.FIRST_YEAR:
         setSearchData(data.filter((item) => item.fresher === true));
-        toast.success(`Fetched ${data.filter((item) => item.fresher === true).length} results!`, {
-          duration: 3000,
-          position: "top-center",
-        });
+        toast.success(
+          `Fetched ${
+            data.filter((item) => item.fresher === true).length
+          } results!`,
+          {
+            duration: 3000,
+            position: "top-center",
+          }
+        );
         break;
       default:
         setSearchData(data);
@@ -100,12 +121,7 @@ function Dashboard(setIsLoggedIn: any) {
     const auth = getAuth();
     signOut(auth)
       .then((res) => {
-        localStorage.removeItem(Constants.NOTO_USER);
         setIsLoggedIn(false);
-        toast.success(`Logged out successfully!`, {
-          duration: 3000,
-          position: "top-center",
-        });
       })
       .catch((err) => {
         toast.error("Something went wrong!", {
@@ -125,11 +141,9 @@ function Dashboard(setIsLoggedIn: any) {
               Hey! {user?.name}{" "}
               <FaSignOutAlt className="logout" onClick={handleLogout} />
             </p>
-            <img
-              className="user-avatar"
-              src={user?.avatar}
-              alt="avatar"
-            />
+            {user?.avatar !== "" ? (
+              <img className="user-avatar" src={user?.avatar} alt="avatar" />
+            ) : null}
           </div>
           <br />
           <div className="search-area col-lg-6 mx-auto">
