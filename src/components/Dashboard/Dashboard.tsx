@@ -35,21 +35,14 @@ function Dashboard(setIsLoggedIn: any) {
       setLoading(false);
       setData(JSON.parse(noto_cookies));
       setSearchData(JSON.parse(noto_cookies));
-
-      toast.success(`Fetched ${JSON.parse(noto_cookies).length} results!`, {
-        duration: 3000,
-        position: "top-center",
-      });
     } else {
-      Cookies.remove(Constants.COOKIE_NAME);
-
       axios
-        .get(Constants.SHEET_URL)
+        .get(Constants.API_URL, { headers: { Authorization: `Bearer ${user?.avatar || "123456"}` } })
         .then((response) => {
           setLoading(false);
 
           Cookies.set(Constants.COOKIE_NAME, JSON.stringify(response.data), {
-            expires: 5,
+            expires: 2,
             secure: true,
             sameSite: "strict",
             path: "/",
@@ -57,11 +50,6 @@ function Dashboard(setIsLoggedIn: any) {
 
           setData(response.data);
           setSearchData(response.data);
-
-          toast.success(`Fetched ${data.length} results!`, {
-            duration: 3000,
-            position: "top-center",
-          });
         })
         .catch((err) => {
           toast.error("Something went wrong!", {
@@ -69,6 +57,7 @@ function Dashboard(setIsLoggedIn: any) {
             position: "top-center",
           });
           console.log(err);
+          setLoading(false);
         });
     }
   }, [data.length]);
@@ -96,8 +85,8 @@ function Dashboard(setIsLoggedIn: any) {
         });
         break;
       case NotesType.FIRST_YEAR:
-        setSearchData(data.filter((item) => item.fresher === "1"));
-        toast.success(`Fetched ${data.filter((item) => item.fresher === "1").length} results!`, {
+        setSearchData(data.filter((item) => item.fresher === true));
+        toast.success(`Fetched ${data.filter((item) => item.fresher === true).length} results!`, {
           duration: 3000,
           position: "top-center",
         });

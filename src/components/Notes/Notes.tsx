@@ -22,7 +22,7 @@ function Notes(props: INotes) {
               <span className="badge rounded-pill bg-success">{props.type}</span>
               {" "}
               {
-                props.fresher === "1" ? <span className="badge rounded-pill bg-warning">1st Year</span> : null
+                props.fresher === true ? <span className="badge rounded-pill bg-warning">1st Year</span> : null
               }
             </p>
             <a

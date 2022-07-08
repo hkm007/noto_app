@@ -11,6 +11,6 @@ export interface INotes {
     type: string,
     owner: string,
     link: string,
-    fresher: string,
-    isPremium: string
+    fresher: boolean,
+    isPremium: boolean
 }
